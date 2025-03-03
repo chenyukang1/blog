@@ -1,4 +1,4 @@
-## 基本概念
+## 什么是Neo4j
 
 ### 节点
 
@@ -95,6 +95,27 @@ RETURN n.id
 #### 不适合频繁更新的场景
 
 如果图结构频繁变化（如节点和边的增删），维护这些直接引用会变得复杂且耗时。每次修改图结构时，都需要更新相关节点的引用信息
+
+## Neo4j内存模型
+![image.png](https://neo4j.com/docs/operations-manual/current/_images/neo4j-memory-management.svg)
+一台专门部署Neo4j的机器可以把内存分为几块：
+- OS内存
+- Neo4j堆内存
+- Neo4j堆外内存（直接内存）
+
+### 堆外内存
+堆外内存是 Neo4j 直接从操作系统分配的内存。这种内存会根据需要动态增长，不受垃圾回收器的影响
+
+### 页缓存
+页面缓存用于缓存存储在磁盘上的 Neo4j 数据。将图形数据和索引缓存到内存中有助于避免昂贵的磁盘访问，从而获得最佳性能
+指定 Neo4j 允许页面缓存使用多少内存的参数是：`server.memory.pagecache.size`
+
+
+推荐阅读：
+- https://neo4j.com/docs/operations-manual/current/performance/memory-configuration/
+
+- https://neo4j.com/developer/kb/understanding-memory-consumption/
+
 
 ## 参考
 
